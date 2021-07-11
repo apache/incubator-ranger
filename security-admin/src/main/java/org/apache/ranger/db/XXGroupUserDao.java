@@ -24,6 +24,7 @@ import java.util.*;
 
 import javax.persistence.NoResultException;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.ranger.common.db.BaseDao;
@@ -178,5 +179,17 @@ public class XXGroupUserDao extends BaseDao<XXGroupUser> {
 		}
 
 		return users;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<XXGroupUser> findByUserIdList(List<Long> userIdList) {
+		if (CollectionUtils.isEmpty(userIdList)) {
+			return new ArrayList<>();
+		}
+		try {
+			return getEntityManager().createNamedQuery("XXGroupUser.findByUserIdList").setParameter("userIdList", userIdList).getResultList();
+		} catch (NoResultException e) {
+			return new ArrayList<>();
+		}
 	}
 }
