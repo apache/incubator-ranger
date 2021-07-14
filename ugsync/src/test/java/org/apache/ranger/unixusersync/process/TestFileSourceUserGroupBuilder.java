@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.apache.ranger.unixusersync.config.UserGroupSyncConfig;
 import org.apache.ranger.usergroupsync.PolicyMgrUserGroupBuilderTest;
+import org.apache.ranger.usergroupsync.UserGroupSink;
 import org.junit.Test;
 
 public class TestFileSourceUserGroupBuilder {
@@ -63,7 +64,7 @@ public class TestFileSourceUserGroupBuilder {
 
         PolicyMgrUserGroupBuilderTest sink = new PolicyMgrUserGroupBuilderTest();
         sink.init();
-        fileBuilder.updateSink(sink);
+        fileBuilder.updateSink((UserGroupSink) sink);
 
         assertEquals(4, sink.getTotalUsers());
         assertEquals(2, sink.getTotalGroups());
